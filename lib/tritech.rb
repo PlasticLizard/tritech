@@ -1,5 +1,4 @@
 require "rubygems"
-#require "~/dev/opensource/slither/lib/slither"
 require "slither"
 
 module Tritech
@@ -22,7 +21,8 @@ module Tritech
       header.column :batch_number, 6, :padding => :zero
     end
 
-    dir = File.join File.dirname(__FILE__), "tritech/sections/**/*.rb"
+    dir = File.join(File.expand_path('../lib/tritech',__FILE__),
+                    "sections/**/*.rb")
     Dir[dir].each { |section|batch.instance_eval(File.read(section)) }
   end
 
