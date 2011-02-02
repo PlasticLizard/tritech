@@ -21,9 +21,8 @@ module Tritech
       header.column :batch_number, 6, :padding => :zero
     end
 
-    dir = File.join(File.expand_path('../lib/tritech',__FILE__),
-                    "sections/**/*.rb")
-    Dir[dir].each { |section|batch.instance_eval(File.read(section)) }
+    dir = File.join(File.expand_path('.',__FILE__.gsub(/.rb$/,'')), "sections/**/*.rb")
+    Dir[dir].each { |section|  batch.instance_eval(File.read(section))}
   end
 
   def self.parse(file)
