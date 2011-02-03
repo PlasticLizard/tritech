@@ -1,5 +1,6 @@
 guarantor :align => :left do |guarantor|
   guarantor.trap { |line| line[0,3] == 'GUA'}
+  guarantor.template :record
   guarantor.spacer 1
   guarantor.column :guarantor_number, 11
   guarantor.column :ssn, 9, :type=>:integer, :align=>:right
