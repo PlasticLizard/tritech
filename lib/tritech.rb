@@ -36,13 +36,18 @@ module Tritech
 
   def self.generate(data)
     builder = []
+    errors = []
     data.each do |record|
-      section = SPECIFICATION.sections.find { |s| s.match(record[:record_type])}
-      builder << section.format(record)
+      begin
+        section = SPECIFICATION.sections.find { |s| s.match(record[:record_type])}
+        builder << section.format(record)
+      rescue => ex
+        errors << {:exception => ex.to_s, :record => record}
+      end
     end
     #Tritech Amazon is a windows product, so it needs
     #windows style line endings.
-    builder.join("\r\n")
+    {:contents => builder.join("\r\n"), :problems => errors}
   end
 
   def self.write(filename, data)
